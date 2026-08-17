@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Otávio Leite — VENOM | Estudante de Engenharia Elétrica, Ciência da Computação e Segurança da Informação."
+    >
+
+    <title>VENOM — Otávio Leite</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+
+        :root {
+            --black: #020202;
+            --black-2: #070707;
+            --black-3: #0d0d0d;
+            --white: #f5f5f5;
+            --gray: #969696;
+            --gray-dark: #292929;
+            --glow: rgba(255,255,255,.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: "Inter", Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 100;
+            opacity: .035;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    #fff 3px
+                );
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at 70% 30%,
+                    rgba(255,255,255,.08),
+                    transparent 20%
+                ),
+                radial-gradient(
+                    circle at 20% 80%,
+                    rgba(255,255,255,.035),
+                    transparent 25%
+                ),
+                #020202;
+        }
+
+        .background::before {
+            content: "";
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            right: -300px;
+            top: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow:
+                0 0 80px rgba(255,255,255,.04),
+                inset 0 0 80px rgba(255,255,255,.03);
+        }
+
+        .background::after {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            left: -250px;
+            bottom: -200px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.05);
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            z-index: 50;
+
+            background: rgba(2,2,2,.72);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+
+        .logo {
+            text-decoration: none;
+            color: white;
+            font-family: "Space Mono", monospace;
+            font-weight: 700;
+            font-size: 19px;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: #777;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        nav a {
+            position: relative;
+            color: #888;
+            text-decoration: none;
+            font-family: "Space Mono", monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            transition: .3s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -8px;
+            left: 0;
+            background: white;
+            transition: .3s;
+            box-shadow: 0 0 8px white;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+            padding: 150px 7% 100px;
+
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            align-items: center;
+            gap: 60px;
+
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .terminal-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 9px 14px;
+
+            border: 1px solid #292929;
+            background: rgba(255,255,255,.025);
+
+            color: #9b9b9b;
+            font-family: "Space Mono", monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+
+            margin-bottom: 30px;
+        }
+
+        .terminal-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 12px white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%,100% {
+                opacity: .3;
+                box-shadow: 0 0 5px white;
+            }
+
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 18px white;
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(70px, 10vw, 150px);
+            line-height: .78;
+            letter-spacing: -9px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .hero h1 .outline {
+            color: transparent;
+            -webkit-text-stroke: 1px white;
+            text-shadow:
+                0 0 25px rgba(255,255,255,.12);
+        }
+
+        .hero-subtitle {
+            margin-top: 35px;
+            color: #a0a0a0;
+            font-family: "Space Mono", monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            max-width: 570px;
+        }
+
+        .hero-subtitle strong {
+            color: white;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            text-decoration: none;
+            color: black;
+            background: white;
+
+            padding: 14px 22px;
+
+            font-family: "Space Mono", monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+
+            transition: .25s;
+
+            box-shadow:
+                0 0 25px rgba(255,255,255,.08);
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 0 30px rgba(255,255,255,.3);
+        }
+
+        .button.secondary {
+            color: white;
+            background: transparent;
+            border: 1px solid #333;
+        }
+
+        .button.secondary:hover {
+            border-color: white;
+            background: rgba(255,255,255,.05);
+        }
+
+        /* =========================
+           SIMBIONTE
+        ========================= */
+
+        .symbiote {
+            height: 500px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .symbiote-core {
+            position: relative;
+            width: 330px;
+            height: 390px;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    #252525 0%,
+                    #090909 45%,
+                    #020202 72%
+                );
+
+            border-radius: 48% 52% 40% 60% / 35% 38% 62% 65%;
+
+            transform: rotate(-8deg);
+
+            box-shadow:
+                inset -25px -30px 60px rgba(0,0,0,.9),
+                inset 20px 10px 50px rgba(255,255,255,.05),
+                0 0 70px rgba(255,255,255,.06);
+
+            border: 1px solid #272727;
+        }
+
+        .symbiote-core::before {
+            content: "";
+            position: absolute;
+            inset: -30px;
+
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 48% 52% 60% 40%;
+
+            transform: rotate(15deg);
+        }
+
+        .symbiote-core::after {
+            content: "";
+            position: absolute;
+
+            width: 180px;
+            height: 70px;
+
+            top: 85px;
+            left: 70px;
+
+            background: white;
+
+            clip-path: polygon(
+                0 30%,
+                100% 0,
+                70% 100%,
+                30% 70%
+            );
+
+            filter:
+                drop-shadow(0 0 15px white)
+                drop-shadow(0 0 35px rgba(255,255,255,.4));
+
+            transform: rotate(-8deg);
+        }
+
+        .eye2 {
+            position: absolute;
+
+            width: 180px;
+            height: 70px;
+
+            top: 150px;
+            right: 55px;
+
+            background: white;
+
+            clip-path: polygon(
+                0 0,
+                100% 30%,
+                70% 70%,
+                30% 100%
+            );
+
+            filter:
+                drop-shadow(0 0 15px white)
+                drop-shadow(0 0 35px rgba(255,255,255,.4));
+
+            transform: rotate(8deg);
+        }
+
+        .fang {
+            position: absolute;
+            bottom: 35px;
+
+            width: 0;
+            height: 0;
+
+            border-left: 23px solid transparent;
+            border-right: 23px solid transparent;
+            border-top: 95px solid white;
+
+            filter:
+                drop-shadow(0 0 12px rgba(255,255,255,.6));
+
+            opacity: .9;
+        }
+
+        .fang.left {
+            left: 95px;
+            transform: rotate(7deg);
+        }
+
+        .fang.right {
+            right: 95px;
+            transform: rotate(-7deg);
+        }
+
+        .web-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,.4),
+                transparent
+            );
+
+            transform-origin: left;
+            opacity: .3;
+        }
+
+        .line1 {
+            width: 420px;
+            top: 50px;
+            right: -100px;
+            transform: rotate(28deg);
+        }
+
+        .line2 {
+            width: 350px;
+            bottom: 50px;
+            left: -100px;
+            transform: rotate(-25deg);
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        section.content {
+            padding: 120px 7%;
+            border-top: 1px solid rgba(255,255,255,.06);
+        }
+
+        .section-label {
+            color: #777;
+            font-family: "Space Mono", monospace;
+            font-size: 10px;
+            letter-spacing: 3px;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            font-size: clamp(38px, 5vw, 70px);
+            letter-spacing: -4px;
+            margin-bottom: 60px;
+        }
+
+        /* =========================
+           SOBRE
+        ========================= */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 100px;
+        }
+
+        .about-name {
+            font-size: 55px;
+            line-height: .9;
+            letter-spacing: -4px;
+        }
+
+        .about-name span {
+            color: #666;
+        }
+
+        .about-text {
+            color: #999;
+            font-size: 16px;
+            line-height: 1.9;
+            max-width: 700px;
+        }
+
+        .about-text strong {
+            color: white;
+        }
+
+        /* =========================
+           FORMAÇÃO
+        ========================= */
+
+        .timeline {
+            display: grid;
+            gap: 15px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 40px;
+
+            padding: 30px;
+
+            border: 1px solid #191919;
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(255,255,255,.035),
+                    transparent
+                );
+
+            transition: .25s;
+        }
+
+        .timeline-item:hover {
+            border-color: #555;
+            transform: translateX(6px);
+            box-shadow: -10px 0 30px rgba(255,255,255,.03);
+        }
+
+        .timeline-year {
+            color: #777;
+            font-family: "Space Mono", monospace;
+            font-size: 11px;
+        }
+
+        .timeline-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-place {
+            color: #777;
+            font-family: "Space Mono", monospace;
+            font-size: 11px;
+        }
+
+        /* =========================
+           EXPERIÊNCIA
+        ========================= */
+
+        .experience {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .experience-card {
+            padding: 35px;
+            min-height: 230px;
+
+            border: 1px solid #1d1d1d;
+            background: #070707;
+
+            position: relative;
+            overflow: hidden;
+
+            transition: .3s;
+        }
+
+        .experience-card:hover {
+            border-color: #555;
+            transform: translateY(-5px);
+        }
+
+        .experience-card::after {
+            content: "";
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            right: -80px;
+            bottom: -80px;
+
+            border: 1px solid #333;
+            border-radius: 50%;
+
+            box-shadow: 0 0 30px rgba(255,255,255,.04);
+        }
+
+        .card-number {
+            color: #555;
+            font-family: "Space Mono", monospace;
+            font-size: 11px;
+            margin-bottom: 40px;
+        }
+
+        .experience-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .experience-card p {
+            color: #777;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           HABILIDADES
+        ========================= */
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            border: 1px solid #292929;
+            padding: 14px 18px;
+
+            background: rgba(255,255,255,.025);
+
+            color: #aaa;
+
+            font-family: "Space Mono", monospace;
+            font-size: 11px;
+
+            transition: .25s;
+        }
+
+        .skill:hover {
+            color: white;
+            border-color: white;
+
+            box-shadow:
+                0 0 18px rgba(255,255,255,.12);
+
+            transform: translateY(-3px);
+        }
+
+        /* =========================
+           CONTATO
+        ========================= */
+
+        .contact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-title {
+            font-size: clamp(45px, 6vw, 90px);
+            line-height: .9;
+            letter-spacing: -5px;
+        }
+
+        .contact-title span {
+            color: transparent;
+            -webkit-text-stroke: 1px white;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .contact-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .contact-label {
+            display: block;
+            color: #555;
+            font-family: "Space Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 2px;
+            margin-bottom: 7px;
+        }
+
+        .contact-item a,
+        .contact-item span {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .contact-item a:hover {
+            color: white;
+            text-shadow: 0 0 12px white;
+        }
+
+        /* =========================
+           TERMINAL
+        ========================= */
+
+        .terminal {
+            margin-top: 100px;
+            padding: 28px;
+
+            border: 1px solid #1d1d1d;
+            background: #050505;
+
+            font-family: "Space Mono", monospace;
+            font-size: 12px;
+            line-height: 2;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 7px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #191919;
+            margin-bottom: 20px;
+        }
+
+        .terminal-circle {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #444;
+        }
+
+        .terminal-line {
+            color: #aaa;
+        }
+
+        .terminal-line span {
+            color: white;
+        }
+
+        .terminal-result {
+            color: #666;
+            padding-left: 18px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid #171717;
+            padding: 30px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            color: #555;
+            font-family: "Space Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+        footer strong {
+            color: #aaa;
+        }
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 140px;
+            }
+
+            .symbiote {
+                height: 350px;
+                margin-top: 30px;
+            }
+
+            .symbiote-core {
+                transform: scale(.75) rotate(-8deg);
+            }
+
+            .about-grid,
+            .contact {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .experience {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 0 5%;
+            }
+
+            .hero,
+            section.content {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .hero h1 {
+                font-size: 70px;
+                letter-spacing: -6px;
+            }
+
+            .section-title {
+                letter-spacing: -2px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .about-name {
+                font-size: 45px;
+            }
+
+            .symbiote {
+                transform: scale(.8);
+                margin-left: -20px;
+            }
+
+            footer {
+                padding-left: 5%;
+                padding-right: 5%;
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<!-- =========================
+     NAV
+========================= -->
+
+<header>
+
+    <a href="#" class="logo">
+        VENOM<span>//</span>OTÁVIO
+    </a>
+
+    <nav>
+        <a href="#sobre">SOBRE</a>
+        <a href="#formacao">FORMAÇÃO</a>
+        <a href="#projetos">PROJETOS</a>
+        <a href="#skills">SKILLS</a>
+        <a href="#contato">CONTATO</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="terminal-label">
+            <span class="terminal-dot"></span>
+            SYSTEM ONLINE // VENOM IDENTITY
+        </div>
+
+        <h1>
+            OTÁVIO<br>
+            <span class="outline">LEITE</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            <strong>VENOM</strong> — ESTUDANTE //
+            TECNOLOGIA // ENGENHARIA // CYBERSECURITY
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#contato" class="button">
+                ENTRAR EM CONTATO
+            </a>
+
+            <a href="#projetos" class="button secondary">
+                VER PROJETOS
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ELEMENTO SIMBIONTE -->
+
+    <div class="symbiote">
+
+        <div class="web-line line1"></div>
+        <div class="web-line line2"></div>
+
+        <div class="symbiote-core">
+
+            <div class="eye2"></div>
+
+            <div class="fang left"></div>
+            <div class="fang right"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SOBRE
+========================= -->
+
+<section class="content" id="sobre">
+
+    <div class="section-label">
+        01 // ABOUT_ME
+    </div>
+
+    <h2 class="section-title">
+        SOBRE MIM
+    </h2>
+
+    <div class="about-grid">
+
+        <div>
+
+            <h3 class="about-name">
+                OTÁVIO<br>
+                <span>LEITE</span>
+            </h3>
+
+        </div>
+
+        <div class="about-text">
+
+            <p>
+                Sou um estudante, realizando projetos via área
+                acadêmica há muitos anos.
+            </p>
+
+            <br>
+
+            <p>
+                Atualmente curso graduação em
+                <strong>Engenharia Elétrica no Instituto Federal</strong>
+                e <strong>Ciências da Computação</strong>,
+                além de diversos cursos de
+                <strong>Segurança da Informação</strong>.
+            </p>
+
+            <br>
+
+            <p>
+                Além das formações acadêmicas reconhecidas pelo MEC,
+                estudei e realizei diversos projetos como autodidata
+                na área da tecnologia, informática, sistemas
+                embarcados e segurança.
+            </p>
+
+            <br>
+
+            <p>
+                Tenho grande interesse em conseguir
+                <strong>estágio na área de tecnologia e segurança.</strong>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FORMAÇÃO
+========================= -->
+
+<section class="content" id="formacao">
+
+    <div class="section-label">
+        02 // EDUCATION
+    </div>
+
+    <h2 class="section-title">
+        FORMAÇÃO
+    </h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+
+            <div class="timeline-year">
+                CONCLUÍDO
+            </div>
+
+            <div>
+                <div class="timeline-title">
+                    Técnico em Eletrotécnica
+                </div>
+
+                <div class="timeline-place">
+                    IFF — CAMPOS CENTRO
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-year">
+                2026.1
+            </div>
+
+            <div>
+                <div class="timeline-title">
+                    Ciências da Computação
+                </div>
+
+                <div class="timeline-place">
+                    ESTÁCIO DE SÁ — CURSANDO
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-year">
+                2023.2
+            </div>
+
+            <div>
+                <div class="timeline-title">
+                    Engenharia Elétrica
+                </div>
+
+                <div class="timeline-place">
+                    IFF — CAMPOS CENTRO — CURSANDO
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PROJETOS / EXPERIÊNCIA
+========================= -->
+
+<section class="content" id="projetos">
+
+    <div class="section-label">
+        03 // EXPERIENCE
+    </div>
+
+    <h2 class="section-title">
+        PROJETOS &amp;<br>
+        EXPERIÊNCIA
+    </h2>
+
+    <div class="experience">
+
+        <article class="experience-card">
+
+            <div class="card-number">
+                PROJECT_001
+            </div>
+
+            <h3>
+                Projetos Acadêmicos
+            </h3>
+
+            <p>
+                Atuação em diversos projetos acadêmicos
+                relacionados aos cursos de formação,
+                tecnologia e desenvolvimento.
+            </p>
+
+        </article>
+
+
+        <article class="experience-card">
+
+            <div class="card-number">
+                PROJECT_002
+            </div>
+
+            <h3>
+                Feira Saber Fazer
+            </h3>
+
+            <p>
+                Participação em diversos projetos da
+                Feira Saber Fazer entre 2020 e 2025,
+                com continuidade em projetos atuais.
+            </p>
+
+        </article>
+
+
+        <article class="experience-card">
+
+            <div class="card-number">
+                SCHOLARSHIP_001
+            </div>
+
+            <h3>
+                Bolsa — Apoio Tecnológico
+            </h3>
+
+            <p>
+                Atuação em projeto de apoio tecnológico
+                durante 2026.
+            </p>
+
+        </article>
+
+
+        <article class="experience-card">
+
+            <div class="card-number">
+                SCHOLARSHIP_002
+            </div>
+
+            <h3>
+                Laboratórios Virtuais
+            </h3>
+
+            <p>
+                Atuação relacionada a laboratórios virtuais
+                e área de telecomunicações em 2026.
+            </p>
+
+        </article>
+
+
+        <article class="experience-card">
+
+            <div class="card-number">
+                PROJECT_003
+            </div>
+
+            <h3>
+                Gestão de Instagram
+            </h3>
+
+            <p>
+                Atuação no gerenciamento e manutenção de
+                página do Instagram durante 2025.
+            </p>
+
+        </article>
+
+
+        <article class="experience-card">
+
+            <div class="card-number">
+                STATUS
+            </div>
+
+            <h3>
+                Buscando estágio
+            </h3>
+
+            <p>
+                Interesse em oportunidades de estágio
+                nas áreas de tecnologia, computação,
+                engenharia e segurança da informação.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SKILLS
+========================= -->
+
+<section class="content" id="skills">
+
+    <div class="section-label">
+        04 // SKILLSET
+    </div>
+
+    <h2 class="section-title">
+        HABILIDADES
+    </h2>
+
+    <div class="skills">
+
+        <div class="skill">TÉCNICO EM ELETROTÉCNICA</div>
+
+        <div class="skill">CIÊNCIA DA COMPUTAÇÃO</div>
+
+        <div class="skill">ENGENHARIA ELÉTRICA</div>
+
+        <div class="skill">LINUX</div>
+
+        <div class="skill">PYTHON</div>
+
+        <div class="skill">C / C++</div>
+
+        <div class="skill">GIT</div>
+
+        <div class="skill">GITHUB</div>
+
+        <div class="skill">REDES DE COMPUTADORES</div>
+
+        <div class="skill">SEGURANÇA DA INFORMAÇÃO</div>
+
+        <div class="skill">SISTEMAS EMBARCADOS</div>
+
+    </div>
+
+
+    <!-- TERMINAL -->
+
+    <div class="terminal">
+
+        <div class="terminal-header">
+
+            <span class="terminal-circle"></span>
+            <span class="terminal-circle"></span>
+            <span class="terminal-circle"></span>
+
+        </div>
+
+        <div class="terminal-line">
+            <span>venom@otavio</span>:~$ whoami
+        </div>
+
+        <div class="terminal-result">
+            estudante_tech
+        </div>
+
+        <div class="terminal-line">
+            <span>venom@otavio</span>:~$ skills --list
+        </div>
+
+        <div class="terminal-result">
+            Linux / Python / C++ / Networks /
+            Cybersecurity / Embedded Systems
+        </div>
+
+        <div class="terminal-line">
+            <span>venom@otavio</span>:~$ status
+        </div>
+
+        <div class="terminal-result">
+            OPEN_TO_INTERNSHIP
+        </div>
+
+        <div class="terminal-line">
+            <span>venom@otavio</span>:~$ _
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTATO
+========================= -->
+
+<section class="content" id="contato">
+
+    <div class="section-label">
+        05 // CONTACT
+    </div>
+
+    <div class="contact">
+
+        <div>
+
+            <h2 class="contact-title">
+                LET'S<br>
+                <span>CONNECT.</span>
+            </h2>
+
+        </div>
+
+
+        <div class="contact-list">
+
+            <div class="contact-item">
+
+                <span class="contact-label">
+                    PHONE
+                </span>
+
+                <a href="tel:+5522999031808">
+                    (22) 99903-1808
+                </a>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <span class="contact-label">
+                    EMAIL
+                </span>
+
+                <a href="mailto:o.otavio.dias.leite@gmail.com">
+                    o.otavio.dias.leite@gmail.com
+                </a>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <span class="contact-label">
+                    LINKEDIN
+                </span>
+
+                <a
+                    href="https://www.linkedin.com/in/otavio-dias-leite-976027366"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    otávio-dias-leite-976027366
+                </a>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <span class="contact-label">
+                    AVAILABILITY
+                </span>
+
+                <span>
+                    DISPONÍVEL PARA ESTÁGIO
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <span>
+        <strong>VENOM</strong> // OTÁVIO LEITE
+    </span>
+
+    <span>
+        ENGINEERING × COMPUTING × SECURITY
+    </span>
+
+    <span>
+        © 2026
+    </span>
+
+</footer>
+
+
+<script>
+
+    /*
+     * Efeito de movimento sutil no elemento simbionte.
+     * Não depende de bibliotecas externas.
+     */
+
+    const symbiote = document.querySelector(".symbiote-core");
+
+    document.addEventListener("mousemove", (event) => {
+
+        if (!symbiote || window.innerWidth < 900) return;
+
+        const x =
+            (event.clientX / window.innerWidth - 0.5) * 10;
+
+        const y =
+            (event.clientY / window.innerHeight - 0.5) * 10;
+
+        symbiote.style.transform =
+            `translate(${x}px, ${y}px) rotate(-8deg)`;
+
+    });
+
+
+    /*
+     * Pequeno efeito de entrada nas seções.
+     */
+
+    const sections =
+        document.querySelectorAll(".content");
+
+    const observer =
+        new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach((entry) => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform =
+                            "translateY(0)";
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.08
+            }
+        );
+
+
+    sections.forEach((section) => {
+
+        section.style.opacity = "0";
+        section.style.transform = "translateY(25px)";
+        section.style.transition =
+            "opacity .8s ease, transform .8s ease";
+
+        observer.observe(section);
+
+    });
+
+</script>
+
+</body>
+</html>
